@@ -1,4 +1,3 @@
-
 '''
 modulo dedicado a la lectura/escritura de archivos 
 
@@ -30,3 +29,6 @@ def archivo_a_lista_tupla(archivo : str) -> list[tuple]:
     cuerpo = data[1:]
         
     return titulo, cuerpo
+
+
+# TODO: diseñar mecanismo para extraer cada campo para categorizarlo de forma limpia y ordenada
