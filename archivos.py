@@ -3,7 +3,6 @@ modulo dedicado a la lectura/escritura de archivos
 
 '''
 
-
 ARCHIVO = 'drug_side_effects_10k.csv'
 
 
@@ -12,6 +11,15 @@ def archivo_a_lista_tupla(archivo : str) -> list[tuple]:
     recibe un archivo y devuelve dos valores:
     primer valor : una tupla con la primer linea del archivo (debe corresponder con el titulo del dataset)
     segundo valor: corresponde al cuerpo del dataset (informacion conformada por una lista de tuplas)
+
+    primer retorno:
+
+    titulo -> (tupla)
+
+    segundo retorno:
+    
+    cuerpo -> [(tupla1),(tupla2), ...] lista de tuplas
+
     '''
 
     data = []
