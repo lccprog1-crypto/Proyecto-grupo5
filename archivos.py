@@ -40,3 +40,11 @@ def archivo_a_lista_tupla(archivo : str) -> list[tuple]:
 
 
 # TODO: diseñar mecanismo para extraer cada campo para categorizarlo de forma limpia y ordenada
+
+if __name__ == '__main__': # esto es para imprimir la estructura de datos solo para este modulo y poder hacer pruebas
+
+    _ , cuerpo = archivo_a_lista_tupla(ARCHIVO)
+
+    for tupla in cuerpo:
+
+        print(tupla)
