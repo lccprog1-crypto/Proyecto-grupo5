@@ -5,8 +5,37 @@ modulo dedicado a la lectura/escritura de archivos
 
 ARCHIVO = 'drug_side_effects_10k.csv'
 
+def tupla_a_dict(titulo : tuple, linea : tuple):
 
-def archivo_a_lista_tupla(archivo : str) -> list[tuple]:
+    '''
+    funcion auxiliar de linea_a_tupla()
+
+    dado el titulo y las linea procesadas a tuplas
+    devuelve un diccionario donde a cada titulo le corresponde su respectivo valor
+    
+    '''
+
+    diccionario_linea = {}
+
+    for i in range(len(titulo)):
+
+        diccionario_linea.update({titulo[i] : linea[i]})
+
+    return diccionario_linea
+
+def linea_a_tupla(linea :str):
+
+    '''
+    convierte cada linea del dataset en una tupla
+    ejemplo:
+
+        "edad,nombre,enfermedad\n" -> (edad, nombre, enfermedad)
+    
+    '''
+    
+    return tuple(linea.replace('\n','').split(','))
+
+def archivo_a_lista_tupla(archivo : str) -> list[dict]:
     '''
     recibe un archivo y devuelve dos valores:
     primer valor : una tupla con la primer linea del archivo (debe corresponder con el titulo del dataset)
@@ -22,29 +51,27 @@ def archivo_a_lista_tupla(archivo : str) -> list[tuple]:
 
     '''
 
-    data = []
-    
     with open(archivo,'r') as doc: 
+
+        titulo = linea_a_tupla(doc.readline())
+        
+        listado = []
 
         for linea in doc:
             
-            linea_tupla = tuple(linea.replace('\n','').split(','))
+            linea_tupla = linea_a_tupla(linea)
             # reeplazo el salto de linea por un string vacio,
             # convierto el string a lista dividierdo por el caracter ","
-            data.append(linea_tupla) # añado el conjunto de datos a la lista
+            #lista_tupla.append(linea_tupla) # añado el conjunto de datos a la lista
 
-    titulo = data[0]
-    cuerpo = data[1:]
+            listado.append(tupla_a_dict(titulo,linea_tupla))
         
-    return titulo, cuerpo
-
+        return listado
 
 # TODO: diseñar mecanismo para extraer cada campo para categorizarlo de forma limpia y ordenada
 
 if __name__ == '__main__': # esto es para imprimir la estructura de datos solo para este modulo y poder hacer pruebas
 
-    _ , cuerpo = archivo_a_lista_tupla(ARCHIVO)
+    print(archivo_a_lista_tupla(ARCHIVO))
 
-    for tupla in cuerpo:
-
-        print(tupla)
+    

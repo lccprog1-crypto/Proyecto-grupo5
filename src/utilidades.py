@@ -3,14 +3,14 @@ import archivos
 import utilidades
 
 
-def enfermedades_prev(linea : tuple) -> bool:
+def enfermedades_prev(linea : dict) -> bool:
     '''
-    esta funcion toma una linea del dataset y devuelve un bool si 
-    la persona tiene enfermedades base 
+    dada una linea en formato diccionario, devuelve un booleano indicando si el paciente
+    tiene enfermedades previas
     
     '''
 
-    return linea[11] != ''
+    return linea['chronic_condition'] != ''
 
 
 def cantidad_afectados():
@@ -20,13 +20,13 @@ def cantidad_afectados():
     usaremos esta funcion para contar las personas que estaban afectadas anteriormente por alguna enfermedad
     
     '''
-    _,cuerpo=archivos.archivo_a_lista_tupla(archivos.ARCHIVO)
+    data = archivos.archivo_a_lista_tupla(archivos.ARCHIVO)
     enfermos=0
     sanos=0
 
-    for tupla in cuerpo:
+    for linea in data:
 
-        if enfermedades_prev (tupla):
+        if enfermedades_prev(linea):
             enfermos+=1
         else:
             sanos+=1
@@ -41,5 +41,6 @@ def porcentaje():
     porcentaje_sano = round(((sano / total) * 100),2)
     porcentaje_enfermo=round(((enfermo/total)*100),2)
     return porcentaje_sano,porcentaje_enfermo 
-print (porcentaje())
+
+print(porcentaje())
 
