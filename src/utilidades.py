@@ -33,14 +33,22 @@ def cantidad_afectados():
     total=(enfermos,sanos)
     return total
 
+def calcular_porcentaje(valor: int,total : int) -> float: # TODO: hacer tests
 
-def porcentaje(): # TODO: documentar esta funcion
-                  # TODO: modificarla para poder hacerle los tests
+    'dado un valor (conjunto acotado de un total) y un total, calcula su porcentaje'
+
+
+    return round((valor/total) * 100,2)
+
+
+def porcentaje_afectados(): # TODO: documentar esta funcion
+                            # TODO: modificarla para poder hacerle los tests
     enfermo, sano = cantidad_afectados()
     total=enfermo+sano
-    porcentaje_sano = round(((sano / total) * 100),2)
-    porcentaje_enfermo=round(((enfermo/total)*100),2)
+    porcentaje_sano = calcular_porcentaje(sano,total)
+    porcentaje_enfermo=calcular_porcentaje(enfermo,total)
+
     return porcentaje_sano,porcentaje_enfermo 
 
-print(porcentaje())
+print(porcentaje_afectados())
 
