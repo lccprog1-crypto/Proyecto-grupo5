@@ -28,7 +28,7 @@ def tupla_a_dict(titulo : tuple, linea : tuple) -> dict:
 
     diccionario_linea = {}
 
-    for i in range(len(titulo)):
+    for i in range(min(len(titulo),len(linea))): # min compara dos numeros y devuelve el menor
 
         diccionario_linea.update({titulo[i] : linea[i]})
 
