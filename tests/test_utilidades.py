@@ -1,4 +1,4 @@
-import utilidades
+import src.utilidades as utilidades
 
 def test_enfermedades_prev():
 
