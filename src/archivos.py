@@ -5,13 +5,24 @@ modulo dedicado a la lectura/escritura de archivos
 
 ARCHIVO = 'drug_side_effects_10k.csv'
 
-def tupla_a_dict(titulo : tuple, linea : tuple):
+def tupla_a_dict(titulo : tuple, linea : tuple) -> dict:
 
     '''
     funcion auxiliar de linea_a_tupla()
 
     dado el titulo y las linea procesadas a tuplas
     devuelve un diccionario donde a cada titulo le corresponde su respectivo valor
+
+    ejemplo:
+
+      titulo : (edad, genero, pais)
+      contenido : (18,femenino,Arg)
+
+    retorno: 
+
+        {edad:18,genero:femenino,pais:Arg}
+
+    solo maneja casos individuales, debe iterarse con un for
     
     '''
 
@@ -35,19 +46,18 @@ def linea_a_tupla(linea :str):
     
     return tuple(linea.replace('\n','').split(','))
 
-def archivo_a_lista_tupla(archivo : str) -> list[dict]:
+def archivo_a_dict(archivo : str) -> list[dict]:
     '''
-    recibe un archivo y devuelve dos valores:
-    primer valor : una tupla con la primer linea del archivo (debe corresponder con el titulo del dataset)
-    segundo valor: corresponde al cuerpo del dataset (informacion conformada por una lista de tuplas)
+    esta funcion es la encargada de leer el archivo csv
 
-    primer retorno:
+    - obtiene los titulos de los dataset y su contenido
 
-    titulo -> (tupla)
+    - devuelve una lista de diccionarios donde la clave corresponde al titulo y
+      el valor corresponde al valor puntual del caso
 
-    segundo retorno:
-    
-    cuerpo -> [(tupla1),(tupla2), ...] lista de tuplas
+      retorno: 
+
+        [{edad:18,genero:femenino,pais:Arg}, {edad:70,genero:masculino,pais:Francia}]
 
     '''
 
@@ -68,10 +78,9 @@ def archivo_a_lista_tupla(archivo : str) -> list[dict]:
         
         return listado
 
-# TODO: diseñar mecanismo para extraer cada campo para categorizarlo de forma limpia y ordenada
 
 if __name__ == '__main__': # esto es para imprimir la estructura de datos solo para este modulo y poder hacer pruebas
 
-    print(archivo_a_lista_tupla(ARCHIVO))
+    print(archivo_a_dict(ARCHIVO))
 
     

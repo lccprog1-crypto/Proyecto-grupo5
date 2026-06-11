@@ -1,6 +1,5 @@
 'modulo que gestiona funciones utiles para el programador'
 import archivos
-import utilidades
 
 
 def enfermedades_prev(linea : dict) -> bool:
@@ -20,7 +19,7 @@ def cantidad_afectados():
     usaremos esta funcion para contar las personas que estaban afectadas anteriormente por alguna enfermedad
     
     '''
-    data = archivos.archivo_a_lista_tupla(archivos.ARCHIVO)
+    data = archivos.archivo_a_dict(archivos.ARCHIVO)
     enfermos=0
     sanos=0
 
@@ -35,7 +34,8 @@ def cantidad_afectados():
     return total
 
 
-def porcentaje():
+def porcentaje(): # TODO: documentar esta funcion
+                  # TODO: modificarla para poder hacerle los tests
     enfermo, sano = cantidad_afectados()
     total=enfermo+sano
     porcentaje_sano = round(((sano / total) * 100),2)
