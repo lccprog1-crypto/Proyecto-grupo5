@@ -8,7 +8,7 @@ ARCHIVO = 'drug_side_effects_10k.csv'
 def tupla_a_dict(titulo : tuple, linea : tuple) -> dict:
 
     '''
-    funcion auxiliar de linea_a_tupla()
+    funcion auxiliar de archivo_a_dict()
 
     dado el titulo y las linea procesadas a tuplas
     devuelve un diccionario donde a cada titulo le corresponde su respectivo valor

@@ -26,4 +26,4 @@ def levantar_web():
                   formato='%1.2f%%')
     
 
-    # TODO: hacer un conteo de las personas que padecen enfermedades previas
+    
