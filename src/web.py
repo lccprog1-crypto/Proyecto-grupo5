@@ -26,5 +26,6 @@ def levantar_web():
                   formato='%1.2f%%')
     
     
-    # dado un pais ¿cual es el medicamento con mas efectos colaterales?
+    # dado un pais ¿cual es el medicamento con mas efectos colaterales? (respondida) 
+    # TODO: hacer el grafico a partir de las funciones que defini en utilidades - Urban
     

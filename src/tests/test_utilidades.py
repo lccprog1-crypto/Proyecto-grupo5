@@ -15,3 +15,10 @@ def test_enfermedades_prev():
     
     assert utilidades.enfermedades_prev(dict_test) is True  # tiene enfermedades
     assert utilidades.enfermedades_prev(dict_test2) is False # no tiene
+
+
+def test_contar_elementos_repetidos():
+
+    assert utilidades.contar_elementos_repetidos(['test','hola','mundo','test','test']) == ('test',3)
+    assert utilidades.contar_elementos_repetidos([1,0,1,0,1,1,1]) == ('1',5)
+    assert utilidades.contar_elementos_repetidos([]) == ('',0)

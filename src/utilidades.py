@@ -1,7 +1,6 @@
 'modulo que gestiona funciones utiles para el programador'
 import archivos
 
-
 def enfermedades_prev(linea : dict) -> bool:
     '''
     dada una linea en formato diccionario, devuelve un booleano indicando si el paciente
@@ -70,6 +69,54 @@ def clasificar_dataset(clave : str, clasificacion :str, archivo : str= archivos.
     return clasif
 
 
+def contar_elementos_repetidos(lista : list) -> tuple[str,int]:
+
+    '''
+    funcion que dada una lista devuelve el elemento mas repetido
+    y el numero de veces de dicha repeticion
+    
+    
+    '''
+
+
+    anterior = 0
+    elemento_anterior = ''
+
+    for elemento in set(lista):
+
+        n = lista.count(elemento)
+
+        if n > anterior:
+            
+            anterior = n
+            elemento_anterior = str(elemento)
+    
+    return elemento_anterior,anterior
+
+
+
+def droga_mas_impacto(pais : str) -> list[str]:
+
+    '''
+    dado un pais devuelve la droga que mas efectos colaterales tiene en dicho pais
+    junto con el numero de casos
+
+    ejemplo :
+
+    droga_mas_impacto('India') -> (Ibuprofeno,30) 
+    
+    es decir que la droga con mas efectos colaterales en India es el Ibuprofeno con 30 casos documentados
+
+    '''
+
+
+    clasif = clasificar_dataset(clave='country',clasificacion=pais)
+    listado = []
+
+    for linea in clasif:
+        listado.append(linea.get('drug_name'))
+
+    return contar_elementos_repetidos(listado)
 
 def porcentaje_afectados(): # TODO: documentar esta funcion
                             # TODO: modificarla para poder hacerle los tests
@@ -79,6 +126,4 @@ def porcentaje_afectados(): # TODO: documentar esta funcion
     porcentaje_enfermo=calcular_porcentaje(enfermo,total)
 
     return porcentaje_sano,porcentaje_enfermo 
-
-print(porcentaje_afectados())
 
