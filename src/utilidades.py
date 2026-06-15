@@ -7,8 +7,9 @@ def enfermedades_prev(linea : dict) -> bool:
     tiene enfermedades previas
     
     '''
+    condicion_cronica = linea.get('chronic_condition')
 
-    return linea['chronic_condition'] != ''
+    return  condicion_cronica is not None and condicion_cronica != ''
 
 
 def cantidad_afectados():
