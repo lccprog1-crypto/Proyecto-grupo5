@@ -41,6 +41,36 @@ def calcular_porcentaje(valor: int,total : int) -> float: # TODO: hacer tests
     return round((valor/total) * 100,2)
 
 
+def clasificar_dataset(clave : str, clasificacion :str, archivo : str= archivos.ARCHIVO) -> list[dict]:
+
+    '''
+    esta funcion devuelve una lista de diccionarios que cumplan con la clasificacion establecida
+
+    ejemplo :
+
+    -  clave: 'country'
+
+    -  clasificacion: 'Pakistan'
+
+    
+    esto devuelve una lista de diccionarios que corresponden al pais de Pakistan unicamente
+
+    si no hay coincidencias devuelve una lista vacia
+
+    '''
+
+    clasif = []
+
+    for linea in archivos.archivo_a_dict(archivo):
+
+        if linea.get(clave) == clasificacion:
+
+            clasif.append(linea)
+    
+    return clasif
+
+
+
 def porcentaje_afectados(): # TODO: documentar esta funcion
                             # TODO: modificarla para poder hacerle los tests
     enfermo, sano = cantidad_afectados()

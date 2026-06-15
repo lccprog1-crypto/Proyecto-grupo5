@@ -25,5 +25,6 @@ def levantar_web():
                   ['personas con enfermedades base','personas sanas'],
                   formato='%1.2f%%')
     
-
+    
+    # dado un pais ¿cual es el medicamento con mas efectos colaterales?
     
