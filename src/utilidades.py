@@ -41,7 +41,7 @@ def calcular_porcentaje(valor: int,total : int) -> float: # TODO: hacer tests
     return round((valor/total) * 100,2)
 
 
-def clasificar_dataset(clave : str, clasificacion :str, archivo : str= archivos.ARCHIVO) -> list[dict]:
+def clasificar_dataset(clave : str, clasificacion :str,dataset : list[dict] = archivos.dataset) -> list[dict]:
 
     '''
     esta funcion devuelve una lista de diccionarios que cumplan con la clasificacion establecida
@@ -61,7 +61,7 @@ def clasificar_dataset(clave : str, clasificacion :str, archivo : str= archivos.
 
     clasif = []
 
-    for linea in archivos.archivo_a_dict(archivo):
+    for linea in dataset:
 
         if linea.get(clave) == clasificacion:
 

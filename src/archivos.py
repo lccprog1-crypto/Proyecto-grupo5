@@ -78,9 +78,11 @@ def archivo_a_dict(archivo : str) -> list[dict]:
         
         return listado
 
+dataset = archivo_a_dict(ARCHIVO)
+
 
 if __name__ == '__main__': # esto es para imprimir la estructura de datos solo para este modulo y poder hacer pruebas
 
-    print(archivo_a_dict(ARCHIVO))
+    print(dataset)
 
     

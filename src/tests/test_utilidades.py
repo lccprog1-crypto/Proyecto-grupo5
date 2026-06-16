@@ -1,6 +1,16 @@
 import utilidades
 import archivos
 
+def test_clasificar_dataset():
+
+    dataset_testing = [{'country':'Argentina','drug_name':'...','smoker':'yes'},
+                       {'country':'Pakistan','drug_name':'...','smoker':'yes'},
+                       {'country':'Poland','drug_name':'...','smoker':'no'}]
+
+    assert utilidades.clasificar_dataset(clave='country',clasificacion='Argentina',dataset=dataset_testing) == [{'country':'Argentina','drug_name':'...','smoker':'yes'}]
+    assert utilidades.clasificar_dataset(clave='drug_name',clasificacion='...',dataset=dataset_testing) == dataset_testing
+    assert utilidades.clasificar_dataset(clave='testing',clasificacion='...',dataset=dataset_testing) == []
+
 
 
 def test_enfermedades_prev():
