@@ -36,3 +36,10 @@ def test_contar_elementos_repetidos():
     assert utilidades.contar_elementos_repetidos(['test','hola','mundo','test','test']) == ('test',3)
     assert utilidades.contar_elementos_repetidos([1,0,1,0,1,1,1]) == ('1',5)
     assert utilidades.contar_elementos_repetidos([]) == ('',0)
+
+
+def test_calcular_porcentaje():
+
+    assert utilidades.calcular_porcentaje(100, 1000) == 10
+    assert utilidades.calcular_porcentaje(391, 1000) == 39.1
+    assert utilidades.calcular_porcentaje(120, 210) == 57.14
