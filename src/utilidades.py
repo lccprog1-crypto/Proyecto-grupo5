@@ -33,7 +33,7 @@ def cantidad_afectados():
     total=(enfermos,sanos)
     return total
 
-def calcular_porcentaje(valor: int,total : int) -> float: # TODO: hacer tests
+def calcular_porcentaje(valor: int,total : int) -> float:  # IMPORTANTE: es pobable que sea eliminada
 
     'dado un valor (conjunto acotado de un total) y un total, calcula su porcentaje'
 
@@ -96,7 +96,7 @@ def contar_elementos_repetidos(lista : list) -> tuple[str,int]:
 
 
 
-def droga_mas_impacto(pais : str) -> list[str]:
+def droga_mas_impacto(pais : str) -> tuple[str]:
 
     '''
     dado un pais devuelve la droga que mas efectos colaterales tiene en dicho pais
@@ -119,8 +119,7 @@ def droga_mas_impacto(pais : str) -> list[str]:
 
     return contar_elementos_repetidos(listado)
 
-def porcentaje_afectados(): # TODO: documentar esta funcion
-                            # TODO: modificarla para poder hacerle los tests
+def porcentaje_afectados(): # IMPORTANTE: es pobable que sea eliminada
     enfermo, sano = cantidad_afectados()
     total=enfermo+sano
     porcentaje_sano = calcular_porcentaje(sano,total)
@@ -128,3 +127,23 @@ def porcentaje_afectados(): # TODO: documentar esta funcion
 
     return porcentaje_sano,porcentaje_enfermo 
 
+def listar_paises(dataset : list[dict] = archivos.dataset) -> list[str]:# TODO: HACER LOS TESTS
+
+    '''
+    dado un dataset (por defecto el archivo csv) lista todos los paises sin que se repitan
+    
+    
+    '''
+
+
+    paises = []
+
+    for linea in dataset:
+
+        pais = linea.get('country')
+
+        if not pais in paises:
+
+            paises.append(pais)
+
+    return paises
