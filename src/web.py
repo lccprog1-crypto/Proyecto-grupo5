@@ -4,6 +4,9 @@ import streamlit as st
 import matplotlib.pyplot as mpl
 import utilidades
 
+
+# TODO: documentar las funciones de este modulo
+
 def grafico_torta(datos : list|tuple,etiquetas : list = None,formato = None):
 
     fig,ax = mpl.subplots()
@@ -24,11 +27,13 @@ def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '
     st.pyplot(fig)
 
 
-def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple):
+def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple,titulox : str = '',tituloy : str = ''):
 
 
     fig,ax = mpl.subplots()
     ax.plot(ejex,ejey)
+    ax.set_xlabel(titulox.capitalize())
+    ax.set_ylabel(tituloy.capitalize())
 
     st.pyplot(fig)
 
@@ -86,11 +91,13 @@ def efecto_segun_medicamento(droga : str) -> list:
 def desplegar_dashboard_droga_sintoma():
 
     lista_drogas = utilidades.listar_elementos(etiqueta='drug_name')
-    seleccion = crear_selector(opciones=lista_drogas)
-    
+    seleccion = crear_selector(opciones=lista_drogas,etiqueta='efectos colaterales mas comunes segun el medicamento')
+
     if seleccion is not None:
         sintomas , cantidades = efecto_segun_medicamento(seleccion)
-        crear_grafica_lineas(sintomas,cantidades)
+        crear_grafica_lineas(sintomas,cantidades,
+                             titulox='sintomas',
+                             tituloy='numero de casos documentados')
     
 
 
