@@ -94,6 +94,28 @@ def contar_elementos_repetidos(lista : list) -> tuple[str,int]:
     
     return elemento_anterior,anterior
 
+def contar_elementos_total(lista : list) -> list[tuple]: #TODO: testear
+    '''
+    a diferencia de contar_elementos_repetidos() el cual retorna el elemento
+    con el mayor numero de casos, contar_elementos_total() retorna una lista de tuplas 
+    con el elemento y su cantidad repeticiones de forma individual.
+
+    ejemplo:
+
+        contar_elementos_total(['vomitos','vomitos','nauseas']) -> [('vomitos',2),('nauseas',1)]
+
+    '''
+
+    conteos = []
+
+    for elemento in list(set(lista)):
+
+        n = lista.count(elemento)
+
+        conteos.append((str(elemento),n))
+
+    return conteos
+
 
 
 def droga_mas_impacto(pais : str) -> tuple[str]:
