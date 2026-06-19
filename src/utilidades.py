@@ -94,7 +94,7 @@ def contar_elementos_repetidos(lista : list) -> tuple[str,int]:
     
     return elemento_anterior,anterior
 
-def contar_elementos_total(lista : list) -> list[tuple]: #TODO: testear
+def contar_elementos_total(lista : list) -> list[tuple[str,int]]: #TODO: testear
     '''
     a diferencia de contar_elementos_repetidos() el cual retorna el elemento
     con el mayor numero de casos, contar_elementos_total() retorna una lista de tuplas 
@@ -149,23 +149,55 @@ def porcentaje_afectados(): # IMPORTANTE: es pobable que sea eliminada
 
     return porcentaje_sano,porcentaje_enfermo 
 
-def listar_paises(dataset : list[dict] = archivos.dataset) -> list[str]:
+
+
+def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'country') -> list[str]:
 
     '''
-    dado un dataset (por defecto el archivo csv) lista todos los paises sin que se repitan
-    
+    esta funcion recibe un argumento de tipo dataset (por defecto el archivo csv) y
+    una etiqueta (por defecto 'country')
+
+    etiqueta = clave del diccionario
+
+    retorno: lista de valores del diccionario sin repeticiones
     
     '''
 
-
-    paises = []
+    elementos = []
 
     for linea in dataset:
 
-        pais = linea.get('country')
+        el = linea.get(etiqueta)
 
-        if not pais in paises:
+        if not el in elementos:
 
-            paises.append(pais)
+            elementos.append(el)
 
-    return paises
+    return elementos
+
+
+def listar_sintomas_repeticion(droga : str) -> list[str]:
+
+    '''
+    lista los sintomas dado el nombre de una droga
+
+    IMPORTANTE:
+
+    retorna una lista donde los elementos se pueden repetir a diferencia de
+    listar_elementos() donde se descartan elementos repetidos
+    
+    '''
+
+    lista_casos = []
+
+    casos = clasificar_dataset(clave='drug_name',
+                                clasificacion=droga)
+    
+
+    for caso in casos:
+
+        efecto = caso.get('side_effect')
+
+        lista_casos.append(efecto)
+
+    return lista_casos

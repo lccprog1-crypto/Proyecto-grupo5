@@ -55,5 +55,5 @@ def test_listar_paises():
                     
                     ]
     
-    assert utilidades.listar_paises(dataset_test) == ['Argentina','Alemania','Francia','Colombia']
-    assert utilidades.listar_paises([]) == []
+    assert utilidades.listar_elementos(dataset_test) == ['Argentina','Alemania','Francia','Colombia']
+    assert utilidades.listar_elementos([]) == []
