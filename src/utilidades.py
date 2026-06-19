@@ -1,6 +1,29 @@
 'modulo que gestiona funciones utiles para el programador'
 import archivos
 
+
+def eliminar_repeticiones_lista(lista : list) -> list:
+    '''
+    data una lista crea una copia de la misma quitando elementos repetidos
+
+    ejemplo:
+
+    eliminar_repeticiones_lista([1,1,2,3]) -> [1,2,3]
+
+    '''
+
+    copia = []
+
+    for elemento in lista:
+
+        if elemento not in copia:
+
+            copia.append(elemento)
+    
+    return copia
+
+
+
 def enfermedades_prev(linea : dict) -> bool:
     '''
     dada una linea en formato diccionario, devuelve un booleano indicando si el paciente
@@ -94,7 +117,7 @@ def contar_elementos_repetidos(lista : list) -> tuple[str,int]:
     
     return elemento_anterior,anterior
 
-def contar_elementos_total(lista : list) -> list[tuple[str,int]]: #TODO: testear
+def contar_elementos_total(lista : list) -> list[tuple[str,int]]:
     '''
     a diferencia de contar_elementos_repetidos() el cual retorna el elemento
     con el mayor numero de casos, contar_elementos_total() retorna una lista de tuplas 
@@ -108,7 +131,7 @@ def contar_elementos_total(lista : list) -> list[tuple[str,int]]: #TODO: testear
 
     conteos = []
 
-    for elemento in list(set(lista)):
+    for elemento in eliminar_repeticiones_lista(lista):
 
         n = lista.count(elemento)
 
@@ -169,14 +192,14 @@ def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'c
 
         el = linea.get(etiqueta)
 
-        if not el in elementos:
+        if el is not None and not el in elementos:
 
-            elementos.append(el)
+            elementos.append(str(el)) # fuerza a que el elemento se transforme en un str
 
     return elementos
 
 
-def listar_sintomas_repeticion(droga : str) -> list[str]:
+def listar_sintomas_repeticion(droga : str,dataset : list[dict] = archivos.dataset) -> list[str]:
 
     '''
     lista los sintomas dado el nombre de una droga
@@ -191,13 +214,16 @@ def listar_sintomas_repeticion(droga : str) -> list[str]:
     lista_casos = []
 
     casos = clasificar_dataset(clave='drug_name',
-                                clasificacion=droga)
+                                clasificacion=droga,
+                                dataset=dataset)
     
 
     for caso in casos:
 
         efecto = caso.get('side_effect')
 
-        lista_casos.append(efecto)
+        if efecto is not None:
+
+            lista_casos.append(str(efecto))
 
     return lista_casos

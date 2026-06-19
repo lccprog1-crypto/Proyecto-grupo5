@@ -44,16 +44,37 @@ def test_calcular_porcentaje():
     assert utilidades.calcular_porcentaje(391, 1000) == 39.1
     assert utilidades.calcular_porcentaje(120, 210) == 57.14
 
-def test_listar_paises():
 
-    dataset_test = [{'country':'Argentina','drug_name':'...','smoker':'no'},
-                    {'country':'Alemania','drug_name':'...','smoker':'yes'},
-                    {'country':'Francia','drug_name':'...','smoker':'yes'},
-                    {'country':'Colombia','drug_name':'...','smoker':'no'},
-                    {'country':'Argentina','drug_name':'...','smoker':'yes'},
-                    {'country':'Alemania','drug_name':'...','smoker':'no'}
+dataset_test = [
+                    {'country':'Argentina','drug_name':'...','smoker':'no','side_effect':'Pain'},
+                    {'country':'Alemania','drug_name':'...','smoker':'yes','side_effect':'Headache'},
+                    {'country':'Francia','drug_name':'...','smoker':'yes','side_effect':'Pain'},
+                    {'country':'Colombia','drug_name':'...','smoker':'no','side_effect':'stomachache'},
+                    {'country':'Argentina','drug_name':'...','smoker':'yes','side_effect':'Pain'},
+                    {'country':'Alemania','drug_name':'test','smoker':'no','side_effect':'stomachache'}
                     
                     ]
+
+def test_listar_elementos():
+
+    
     
     assert utilidades.listar_elementos(dataset_test) == ['Argentina','Alemania','Francia','Colombia']
     assert utilidades.listar_elementos([]) == []
+
+def test_listar_sintomas_repeticion():
+
+    assert utilidades.listar_sintomas_repeticion(droga='...',dataset=dataset_test) == ['Pain','Headache','Pain','stomachache','Pain']
+    assert utilidades.listar_sintomas_repeticion(droga='test',dataset=dataset_test) == ['stomachache']
+    assert utilidades.listar_sintomas_repeticion(droga='...',dataset=[]) == []
+
+def test_contar_elementos_total():
+
+    assert utilidades.contar_elementos_total(['vomitos','vomitos','nauseas']) == [('vomitos',2),('nauseas',1)]
+    assert utilidades.contar_elementos_total([]) == []
+
+def test_eliminar_repeticiones_lista():
+
+    assert utilidades.eliminar_repeticiones_lista([1,1,2,3]) == [1,2,3]
+
+    assert utilidades.eliminar_repeticiones_lista([]) == []
