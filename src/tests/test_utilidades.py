@@ -43,3 +43,17 @@ def test_calcular_porcentaje():
     assert utilidades.calcular_porcentaje(100, 1000) == 10
     assert utilidades.calcular_porcentaje(391, 1000) == 39.1
     assert utilidades.calcular_porcentaje(120, 210) == 57.14
+
+def test_listar_paises():
+
+    dataset_test = [{'country':'Argentina','drug_name':'...','smoker':'no'},
+                    {'country':'Alemania','drug_name':'...','smoker':'yes'},
+                    {'country':'Francia','drug_name':'...','smoker':'yes'},
+                    {'country':'Colombia','drug_name':'...','smoker':'no'},
+                    {'country':'Argentina','drug_name':'...','smoker':'yes'},
+                    {'country':'Alemania','drug_name':'...','smoker':'no'}
+                    
+                    ]
+    
+    assert utilidades.listar_paises(dataset_test) == ['Argentina','Alemania','Francia','Colombia']
+    assert utilidades.listar_paises([]) == []

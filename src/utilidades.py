@@ -127,7 +127,7 @@ def porcentaje_afectados(): # IMPORTANTE: es pobable que sea eliminada
 
     return porcentaje_sano,porcentaje_enfermo 
 
-def listar_paises(dataset : list[dict] = archivos.dataset) -> list[str]:# TODO: HACER LOS TESTS
+def listar_paises(dataset : list[dict] = archivos.dataset) -> list[str]:
 
     '''
     dado un dataset (por defecto el archivo csv) lista todos los paises sin que se repitan
