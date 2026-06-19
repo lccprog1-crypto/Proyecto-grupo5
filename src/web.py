@@ -24,10 +24,29 @@ def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '
     st.pyplot(fig)
 
 
+def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple):
+
+
+    fig,ax = mpl.subplots()
+    ax.plot(ejex,ejey)
+
+    st.pyplot(fig)
+
+
+def crear_selector(opciones : tuple | list,etiqueta: str =''):
+
+    seleccion = st.selectbox(label=etiqueta,
+                 options=opciones)
+    
+    st.write(f'se muestran resultados para: {seleccion}')
+
+    return seleccion
+
+
 def listar_paises_drogas():
 
     drogas = []
-    paises = utilidades.listar_paises()
+    paises = utilidades.listar_elementos(etiqueta='country')
 
     for pais in paises:
 
@@ -39,17 +58,55 @@ def listar_paises_drogas():
     return paises,drogas
 
 
+def efecto_segun_medicamento(droga : str) -> list:
+
+    '''
+    toma como valor el nombre de una droga y retona dos listas, esta funcion se usa para pasarle los
+    valores a la grafica
+
+    primer retorno: lista de sintomas de la droga
+
+    segundo retorno: lista de casos con esos sintomas
+
+    
+    '''
+
+    sintomas = []
+    cantidades = []
+
+    lista_casos = utilidades.listar_sintomas_repeticion(droga)
+
+    for sintoma, num in utilidades.contar_elementos_total(lista_casos):
+
+        sintomas.append(sintoma)
+        cantidades.append(num)
+
+    return sintomas,cantidades
+
+def desplegar_dashboard_droga_sintoma():
+
+    lista_drogas = utilidades.listar_elementos(etiqueta='drug_name')
+    seleccion = crear_selector(opciones=lista_drogas)
+    
+    if seleccion is not None:
+        sintomas , cantidades = efecto_segun_medicamento(seleccion)
+        crear_grafica_lineas(sintomas,cantidades)
+    
+
+
 def levantar_web():
 
     st.title('Trabajo Practico - Grupo 5')
     st.header(':blue[Tema:] efectos colaterales en medicamentos')
 
-    total = utilidades.cantidad_afectados()
+    
+    desplegar_dashboard_droga_sintoma()
 
 
     enfermos_sanos,pais_droga= st.tabs(['Grafico enfermos vs sanos','Droga vs pais'])
     #   ESTO ES SOLO UN PROTOTIPO:
     #   TODO: MEJORAR PANEL Y HACERLO MAS LLAMATIVO
+    total = utilidades.cantidad_afectados()
 
     with enfermos_sanos:
 
@@ -68,4 +125,3 @@ def levantar_web():
         crear_grafico_barras(paises,
                             drogas,
                             )
-
