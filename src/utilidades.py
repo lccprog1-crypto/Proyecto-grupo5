@@ -174,7 +174,7 @@ def porcentaje_afectados(): # IMPORTANTE: es pobable que sea eliminada
 
 
 
-def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'country') -> list[str]:
+def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'country',repetir : bool = False) -> list[str]:
 
     '''
     esta funcion recibe un argumento de tipo dataset (por defecto el archivo csv) y
@@ -182,7 +182,11 @@ def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'c
 
     etiqueta = clave del diccionario
 
-    retorno: lista de valores del diccionario sin repeticiones
+    retorno: lista de valores del diccionario
+
+    si repetir es True, repite elementos en la lista, de lo contrario solo lo incluye una vez
+
+    por defecto repetir esta en False
     
     '''
 
@@ -192,9 +196,20 @@ def listar_elementos(dataset : list[dict] = archivos.dataset,etiqueta : str = 'c
 
         el = linea.get(etiqueta)
 
-        if el is not None and not el in elementos:
+        if el is None:
+
+            el = ''
+
+
+        if not repetir and not el in elementos:
 
             elementos.append(str(el)) # fuerza a que el elemento se transforme en un str
+        
+
+        if repetir : # incluye todos los elementos aunque esten repetidos
+            elementos.append(str(el))
+
+            
 
     return elementos
 

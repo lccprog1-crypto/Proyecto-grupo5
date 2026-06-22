@@ -107,15 +107,17 @@ def levantar_web():
     st.header(':blue[Tema:] efectos colaterales en medicamentos')
 
     
-    desplegar_dashboard_droga_sintoma()
+    desplegar_dashboard_droga_sintoma()  # pregunta que responde: dado un medicamento ¿que efectos colaterales puede provocar?
 
 
     enfermos_sanos,pais_droga= st.tabs(['Grafico enfermos vs sanos','Droga vs pais'])
-    #   ESTO ES SOLO UN PROTOTIPO:
-    #   TODO: MEJORAR PANEL Y HACERLO MAS LLAMATIVO
+
     total = utilidades.cantidad_afectados()
 
-    with enfermos_sanos:
+
+    # seccion para preguntas estaticas
+
+    with enfermos_sanos: # pregunta que responde : ¿que porcentaje de la poblacion es suceptible a efectos adversos?
 
         st.write('Este grafico muestra el porcentaje de personas sanas y con enfermedades base que sufren efectos colaterales')
 
@@ -124,7 +126,7 @@ def levantar_web():
                         formato='%1.2f%%')
         
 
-    with pais_droga:
+    with pais_droga:  # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
         
         st.write('Droga con mayor efecto colateral segun el pais')
         
