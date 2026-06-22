@@ -35,12 +35,13 @@ def enfermedades_prev(linea : dict) -> bool:
     return  condicion_cronica is not None and condicion_cronica != ''
 
 
-def cantidad_afectados():
+def cantidad_afectados() -> tuple[int,int]:
 
     '''
-    lista-->int,int
-    usaremos esta funcion para contar las personas que estaban afectadas anteriormente por alguna enfermedad
-    
+    lleva un conteo de las personas enfermas (personas con enfermedades base)
+    y sanas (personas sin enfermedades base)
+
+    retorna una tupla con las personas que tienen enfermedades base y las que no 
     '''
     data = archivos.archivo_a_dict(archivos.ARCHIVO)
     enfermos=0
@@ -219,6 +220,7 @@ def listar_sintomas_repeticion(droga : str,dataset : list[dict] = archivos.datas
     '''
     lista los sintomas dado el nombre de una droga
     
+    retorna una lista de sintomas donde dichos sintomas pueden repetirse
     '''
 
    

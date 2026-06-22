@@ -51,7 +51,7 @@ def crear_selector(opciones : tuple | list,etiqueta: str =''):
     return seleccion
 
 
-def listar_paises_drogas():
+def listar_paises_drogas() -> tuple[list,list]:
 
     drogas = []
     paises = utilidades.listar_elementos(etiqueta='country')
