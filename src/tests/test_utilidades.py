@@ -64,6 +64,13 @@ def test_listar_elementos():
     assert utilidades.listar_elementos([],repetir=True) == []
     assert utilidades.listar_elementos(dataset_test,repetir=True) == ['Argentina','Alemania','Francia',
                                                                       'Colombia','Argentina','Alemania']
+    
+    assert utilidades.listar_elementos(dataset=dataset_test,
+                                       etiqueta='testing') == [''] # caso donde la etiqueta que se introduce no existe
+
+    assert utilidades.listar_elementos(dataset=dataset_test,
+                                       etiqueta='testing'
+                                       ,repetir=True) == [''] * len(dataset_test)
 
 def test_listar_sintomas_repeticion():
 
