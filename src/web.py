@@ -6,6 +6,7 @@ import utilidades
 
 
 # TODO: documentar las funciones de este modulo
+# TODO: diseñar mas preguntas dinamicas
 
 def grafico_torta(datos : list|tuple,etiquetas : list = None,formato = None):
 
@@ -14,7 +15,7 @@ def grafico_torta(datos : list|tuple,etiquetas : list = None,formato = None):
     st.pyplot(fig)
 
 
-def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '',titulox : str = '',tituloy : str = ''):
+def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '',titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
 
     fig,ax = mpl.subplots()
 
@@ -23,17 +24,19 @@ def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '
     
     ax.set_ylabel(tituloy)
     ax.set_xlabel(titulox)
+    fig.set_size_inches(tamañox,tamañoy)
 
     st.pyplot(fig)
 
 
-def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple,titulox : str = '',tituloy : str = ''):
+def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple,titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
 
 
     fig,ax = mpl.subplots()
     ax.plot(ejex,ejey)
     ax.set_xlabel(titulox.capitalize())
     ax.set_ylabel(tituloy.capitalize())
+    fig.set_size_inches(tamañox,tamañoy)
 
     st.pyplot(fig)
 
@@ -96,9 +99,29 @@ def desplegar_dashboard_droga_sintoma():
     if seleccion is not None:
         sintomas , cantidades = efecto_segun_medicamento(seleccion)
         crear_grafica_lineas(sintomas,cantidades,
-                             titulox='sintomas',
+                             titulox='sintomas documentados',
                              tituloy='numero de casos documentados')
+        
+def droga_mas_efectos():
+
+    '''
+    cuenta la cantidad de repeticiones de droga en el dataset y retorna una lista
+    con la droga y otra lista con la cantidad de casos para posteriormente llevas a cabo la grafica
     
+    '''
+
+    drogas = []
+    repeticiones_drogas = []
+
+    lista_drogas_repetidas = utilidades.listar_elementos(etiqueta='drug_name',
+                                                        repetir=True)
+    
+    for droga,rep in utilidades.contar_elementos_total(lista_drogas_repetidas):
+
+        drogas.append(droga)
+        repeticiones_drogas.append(rep)
+
+    return drogas, repeticiones_drogas
 
 
 def levantar_web():
@@ -106,17 +129,21 @@ def levantar_web():
     st.title('Trabajo Practico - Grupo 5')
     st.header(':blue[Tema:] efectos colaterales en medicamentos')
 
-    
+    # PREGUNTA NRO 7 (DINAMICA):
     desplegar_dashboard_droga_sintoma()  # pregunta que responde: dado un medicamento ¿que efectos colaterales puede provocar?
 
 
-    enfermos_sanos,pais_droga= st.tabs(['Grafico enfermos vs sanos','Droga vs pais'])
+    enfermos_sanos,pais_droga,med_mas_doc = st.tabs(['Grafico enfermos vs sanos',
+                                        'Droga vs pais',
+                                        'medicamentos mas documentados'])
+    
 
     total = utilidades.cantidad_afectados()
 
 
     # seccion para preguntas estaticas
 
+    # PREGUNTA NOR 5 (ESTATICA):
     with enfermos_sanos: # pregunta que responde : ¿que porcentaje de la poblacion es suceptible a efectos adversos?
 
         st.write('Este grafico muestra el porcentaje de personas sanas y con enfermedades base que sufren efectos colaterales')
@@ -125,7 +152,8 @@ def levantar_web():
                         ['personas con enfermedades base','personas sanas'],
                         formato='%1.2f%%')
         
-
+        
+                      # PREGUNTA NRO 8 (ESTATICA):
     with pais_droga:  # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
         
         st.write('Droga con mayor efecto colateral segun el pais')
@@ -133,4 +161,16 @@ def levantar_web():
         paises, drogas = listar_paises_drogas()
         crear_grafico_barras(paises,
                             drogas,
-                            )
+                            titulox='registro de paises',
+                            tituloy='droga con mas impacto')
+        
+
+                      # PREGUNTA NRO 4 (ESTATICA):
+    with med_mas_doc: # pregunta que responde: ¿cual es la droga con mayores casos de efectos colaterales?
+                      # (a nivel mundial)
+        med,casos = droga_mas_efectos()
+
+        crear_grafica_lineas(med,casos,
+                             tamañox=15,
+                             titulox='medicamentos',
+                             tituloy='numero de casos a escala mundial')
