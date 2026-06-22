@@ -218,27 +218,15 @@ def listar_sintomas_repeticion(droga : str,dataset : list[dict] = archivos.datas
 
     '''
     lista los sintomas dado el nombre de una droga
-
-    IMPORTANTE:
-
-    retorna una lista donde los elementos se pueden repetir a diferencia de
-    listar_elementos() donde se descartan elementos repetidos
     
     '''
 
-    lista_casos = []
-
+   
     casos = clasificar_dataset(clave='drug_name',
                                 clasificacion=droga,
                                 dataset=dataset)
     
 
-    for caso in casos:
-
-        efecto = caso.get('side_effect')
-
-        if efecto is not None:
-
-            lista_casos.append(str(efecto))
+    lista_casos = listar_elementos(dataset=casos,etiqueta='side_effect',repetir=True)
 
     return lista_casos
