@@ -79,17 +79,11 @@ def efecto_segun_medicamento(droga : str) -> list:
     
     '''
 
-    sintomas = []
-    cantidades = []
-
     lista_casos = utilidades.listar_sintomas_repeticion(droga)
-
-    for sintoma, num in utilidades.contar_elementos_total(lista_casos):
-
-        sintomas.append(sintoma)
-        cantidades.append(num)
+    sintomas,cantidades = utilidades.agrupar_elementos_tupla(utilidades.contar_elementos_total(lista_casos))
 
     return sintomas,cantidades
+
 
 def desplegar_dashboard_droga_sintoma():
 
@@ -117,21 +111,13 @@ def desplegar_dashboard_pais_droga():
 
     listado_drogas_cantidad = utilidades.listar_drogas_repeticion_pais(pais_seleccion)
 
-    drogas = []
-    cantidades = [] # TODO:  ver si esta logica se puede abstraer
+    drogas,cantidades = utilidades.agrupar_elementos_tupla(listado_drogas_cantidad)
 
-    for drog,cant in listado_drogas_cantidad:
-
-        drogas.append(drog)
-        
-        cantidades.append(cant)
-
-    
     crear_grafico_barras(ejex = drogas,
                             ejey = cantidades,
                             titulox = 'droga con mas efectos secundarios',
                             tituloy = 'numero de casos',
-                            tamañox = 10,
+                            tamañox = 15,
                             tamañoy = 10
                         )
 
@@ -143,19 +129,21 @@ def droga_mas_efectos():
     
     '''
 
-    drogas = []
-    repeticiones_drogas = []
 
     lista_drogas_repetidas = utilidades.listar_elementos(etiqueta='drug_name',
                                                         repetir=True)
+    '''
+    esto lo que hace es agrupar en las drogas con el resto de drogas
+    agrupar los valores de cantidades con los valores de cantidades
+    el primer elemento de la lista drogas esta relacionado con el primer elemento
+    de la lista de repeticiones y asi sucesivamente
+    '''
+    totales_elementos = utilidades.contar_elementos_total(lista_drogas_repetidas)
+
+    drogas,repeticiones_drogas = utilidades.agrupar_elementos_tupla(totales_elementos)
     
-    for droga,rep in utilidades.contar_elementos_total(lista_drogas_repetidas):
-
-        drogas.append(droga)
-        repeticiones_drogas.append(rep)
-
-    return drogas, repeticiones_drogas
-
+    
+    return drogas,repeticiones_drogas
 
 def levantar_web():
 
@@ -170,7 +158,7 @@ def levantar_web():
                                         'Droga vs pais',
                                         'medicamentos mas documentados'])
     
-# pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
+    # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
 
     st.header('Grafico droga con mas efectos secundarios por pais')
     desplegar_dashboard_pais_droga()

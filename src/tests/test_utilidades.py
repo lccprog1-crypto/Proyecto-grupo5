@@ -88,3 +88,13 @@ def test_eliminar_repeticiones_lista():
     assert utilidades.eliminar_repeticiones_lista([1,1,2,3]) == [1,2,3]
 
     assert utilidades.eliminar_repeticiones_lista([]) == []
+
+def test_agrupar_elementos_tupla():
+
+    assert utilidades.agrupar_elementos_tupla([('vomito',2),('fiebre', 4)]) == (['vomito','fiebre'],[2,4])
+
+    assert utilidades.agrupar_elementos_tupla([]) == ([],[])
+    
+    # en caso de valor incorrecto
+    assert utilidades.agrupar_elementos_tupla([('vomito',2),('fiebre', 4),('tos',2,3)]) == (['vomito','fiebre'],[2,4])
+

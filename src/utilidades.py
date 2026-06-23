@@ -260,3 +260,34 @@ def listar_drogas_repeticion_pais(pais :str):
  
     
     return contar_elementos_total(drogas_repetidas)
+
+
+def agrupar_elementos_tupla(lista : list[tuple]):
+
+    '''
+    esta funcion recibe una lista de tuplas de dos elementos
+
+    y agrupa dichos elementos en dos listas separadas que luego son retornadas
+
+    esta funcion se utiliza para preparar los datos para pasar a graficar
+    
+    ejemplo:
+
+        agrupar_elementos_tupla([(vomito,2),(fiebre, 4)]) -> ([vomito,fiebre] , [2,4])
+
+    ACLARACION: si la tupla tiene un tamaño distinto de 2 es ignorada
+ 
+    '''
+
+    agrupacion_A = []
+    agrupacion_B = []
+
+
+    for tupla in lista:
+
+        if len(tupla) == 2:
+
+            agrupacion_A.append(tupla[0])
+            agrupacion_B.append(tupla[1])
+
+    return agrupacion_A,agrupacion_B
