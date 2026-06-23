@@ -202,4 +202,11 @@ def levantar_web():
                              tituloy='numero de casos a escala mundial')
 
 
+def main():
+
+    levantar_web()
+
+if __name__ == '__main__':
+
+    main()
     
