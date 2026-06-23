@@ -148,6 +148,8 @@ def droga_mas_impacto(pais : str) -> tuple[str]:
     dado un pais devuelve la droga que mas efectos colaterales tiene en dicho pais
     junto con el numero de casos
 
+    retorno -> tupla donde el primer elemento es un string y el segundo un int
+
     ejemplo :
 
     droga_mas_impacto('India') -> (Ibuprofeno,30) 
@@ -232,3 +234,29 @@ def listar_sintomas_repeticion(droga : str,dataset : list[dict] = archivos.datas
     lista_casos = listar_elementos(dataset=casos,etiqueta='side_effect',repetir=True)
 
     return lista_casos
+
+def listar_drogas_repeticion_pais(pais :str): 
+
+    '''
+    esta funcion admite un pais y retorna una lista de tuplas con las drogas 
+
+    y las cantidades de casos de que de las mismas
+
+    ejemplo:
+
+    listar_drogas_repeticion_pais('Pakistan') -> [(Ibuprofen,10),(Insulin,5), ...]
+    
+    
+    '''
+
+
+    dataset_filtrado = clasificar_dataset(clave='country',clasificacion=pais)
+
+    
+
+    drogas_repetidas = listar_elementos(etiqueta='drug_name',
+                                        repetir=True,
+                                        dataset=dataset_filtrado)
+ 
+    
+    return contar_elementos_total(drogas_repetidas)

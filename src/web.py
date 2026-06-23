@@ -97,6 +97,7 @@ def desplegar_dashboard_droga_sintoma():
     seleccion = crear_selector(opciones=lista_drogas,etiqueta='efectos colaterales mas comunes segun el medicamento')
 
     if seleccion is not None:
+
         sintomas , cantidades = efecto_segun_medicamento(seleccion)
         crear_grafica_lineas(sintomas,cantidades,
                              titulox='sintomas documentados',
@@ -104,24 +105,35 @@ def desplegar_dashboard_droga_sintoma():
         
 def desplegar_dashboard_pais_droga():
 
+    '''
+    esta funcion muestra el numero de casos por droga
+    '''
+
     lista_paises = utilidades.listar_elementos(etiqueta = 'country')
 
-    seleccion = crear_selector(opciones=lista_paises,etiqueta='droga con mayor impacto segun el pais')
+    pais_seleccion = crear_selector(opciones=lista_paises,etiqueta='droga con mayor impacto segun el pais')
 
-    if seleccion is not None:
-        datos_pais = utilidades.droga_mas_impacto(seleccion)
+    # aclaracion : pais_seleccion es marcando como vacion None pero funciona bien
 
-        drogas = [tupla[0] for tupla in datos_pais]
-        cantidades = [tupla[1] for tupla in datos_pais]
+    listado_drogas_cantidad = utilidades.listar_drogas_repeticion_pais(pais_seleccion)
 
-        if drogas:
-            crear_grafico_barras(ejex = drogas,
-                                 ejey = cantidades,
-                                 titulox = 'droga con mas efectos secundarios',
-                                 tituloy = 'numero de casos',
-                                 tamañox = 10,
-                                 tamañoy = 10
-                                )
+    drogas = []
+    cantidades = [] # TODO:  ver si esta logica se puede abstraer
+
+    for drog,cant in listado_drogas_cantidad:
+
+        drogas.append(drog)
+        
+        cantidades.append(cant)
+
+    
+    crear_grafico_barras(ejex = drogas,
+                            ejey = cantidades,
+                            titulox = 'droga con mas efectos secundarios',
+                            tituloy = 'numero de casos',
+                            tamañox = 10,
+                            tamañoy = 10
+                        )
 
 def droga_mas_efectos():
 

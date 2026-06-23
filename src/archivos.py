@@ -84,5 +84,3 @@ dataset = archivo_a_dict(ARCHIVO)
 if __name__ == '__main__': # esto es para imprimir la estructura de datos solo para este modulo y poder hacer pruebas
 
     print(dataset)
-
-print(dataset)  
