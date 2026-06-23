@@ -102,6 +102,27 @@ def desplegar_dashboard_droga_sintoma():
                              titulox='sintomas documentados',
                              tituloy='numero de casos documentados')
         
+def desplegar_dashboard_pais_droga():
+
+    lista_paises = utilidades.listar_elementos(etiqueta = 'country')
+
+    seleccion = crear_selector(opciones=lista_paises,etiqueta='droga con mayor impacto segun el pais')
+
+    if seleccion is not None:
+        datos_pais = utilidades.droga_mas_impacto(seleccion)
+
+        drogas = [tupla[0] for tupla in datos_pais]
+        cantidades = [tupla[1] for tupla in datos_pais]
+
+        if drogas:
+            crear_grafico_barras(ejex = drogas,
+                                 ejey = cantidades,
+                                 titulox = 'droga con mas efectos secundarios',
+                                 tituloy = 'numero de casos',
+                                 tamañox = 10,
+                                 tamañoy = 10
+                                )
+
 def droga_mas_efectos():
 
     '''
@@ -136,6 +157,11 @@ def levantar_web():
     enfermos_sanos,pais_droga,med_mas_doc = st.tabs(['Grafico enfermos vs sanos',
                                         'Droga vs pais',
                                         'medicamentos mas documentados'])
+    
+# pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
+
+    st.header('Grafico droga con mas efectos secundarios por pais')
+    desplegar_dashboard_pais_droga()
     
 
     total = utilidades.cantidad_afectados()
@@ -174,3 +200,6 @@ def levantar_web():
                              tamañox=15,
                              titulox='medicamentos',
                              tituloy='numero de casos a escala mundial')
+
+
+    

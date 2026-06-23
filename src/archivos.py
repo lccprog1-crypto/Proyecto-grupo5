@@ -85,4 +85,4 @@ if __name__ == '__main__': # esto es para imprimir la estructura de datos solo p
 
     print(dataset)
 
-    
+print(dataset)  
