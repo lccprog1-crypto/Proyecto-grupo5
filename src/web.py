@@ -145,10 +145,22 @@ def droga_mas_efectos():
     
     return drogas,repeticiones_drogas
 
+
 def levantar_web():
 
-    st.title('Trabajo Practico - Grupo 5')
-    st.header(':blue[Tema:] efectos colaterales en medicamentos')
+    st.title('Proyecto de Programación II - Grupo 5')
+    st.header('Tema: efectos colaterales en medicamentos')
+    st.header('Integrantes:\n Fiori Santino, Urbaneja Matias, Rojas Lucca',divider=True)
+              
+    # MUESTREO DE PAISES EN ESTUDIO
+    coords = utilidades.listar_coordenadas_paises()
+    st.write('Estos son los paises en estudio para este dataset:')
+    mapa = st.map(data= coords,
+                  latitude='latitudes',
+                  longitude='longitudes',
+                  color='#BD42FF')
+    
+
 
     # PREGUNTA NRO 7 (DINAMICA):
     desplegar_dashboard_droga_sintoma()  # pregunta que responde: dado un medicamento ¿que efectos colaterales puede provocar?

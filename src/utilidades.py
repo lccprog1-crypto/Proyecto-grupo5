@@ -291,3 +291,49 @@ def agrupar_elementos_tupla(lista : list[tuple]):
             agrupacion_B.append(tupla[1])
 
     return agrupacion_A,agrupacion_B
+
+def listar_coordenadas_paises(dataset : list[dict] = archivos.dataset) -> dict: # TODO: hacer los tests unitarios
+
+    
+
+    '''
+    esta funcion recibe un dataset (por defecto el archivo csv) y 
+    retorna un diccionario de coordenadas con su latitud y longitud para posteriormente
+    hacer un grafico con st.map()
+    
+    
+    '''
+
+
+    
+    # las coordenadas estan en formato de string, debemos pasar todos los datos a float
+    latitudes_str = listar_elementos(dataset=dataset,
+                                    etiqueta='capital_lat',
+                                    repetir=True)
+    
+    longitudes_str = listar_elementos(dataset=dataset,
+                                  etiqueta='capital_lon',
+                                  repetir=True)
+    
+
+    # inicializo nuevas listas que van a tener las coordenadas en float
+    lats_float = []
+    long_float = []
+
+
+    for lat in latitudes_str:
+
+        lats_float.append(float(lat))
+
+    for long in longitudes_str:
+
+        long_float.append(float(long))
+
+    # creo el diccionario que posteriormente se lo voy a enviar a st.map()
+
+    dic_coords = {
+        'latitudes': lats_float,
+        'longitudes': long_float 
+    }
+        
+    return dic_coords
