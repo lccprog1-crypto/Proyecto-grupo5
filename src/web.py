@@ -254,6 +254,7 @@ def levantar_web():
                                         'ranking de paises',
                                         'grafico de promedios etarios'])
     
+    # PREGUNTA NRO 6 (DINAMICA):
     # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
 
     st.header('Grafico droga con mas efectos secundarios por pais')

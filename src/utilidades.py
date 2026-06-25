@@ -307,7 +307,7 @@ def efectos_colaterales(linea : dict) -> bool:
 def cantidad_efectos_colaterales(pais, dataset = archivos.dataset) -> int: 
 
     '''
-    lleva un conteo de las personas con efectos colaterales y sin efectos colaterales
+    lleva un conteo de las personas con efectos colaterales 
     retorna un int con la cantidad de personas con efectos colaterales 
     '''
     
