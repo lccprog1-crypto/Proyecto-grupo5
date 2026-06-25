@@ -47,7 +47,7 @@ def test_calcular_porcentaje():
 
 dataset_test = [
                     {'country':'Argentina','drug_name':'...','smoker':'no','side_effect':'Pain'},
-                    {'country':'Alemania','drug_name':'...','smoker':'yes','side_effect':'Headache'},
+                    {'country':'Alemania','drug_name':'...','smoker':'yes','side_effect':'Headache','capital_lon':10.4515,'capital_lat':51.1657},
                     {'country':'Francia','drug_name':'...','smoker':'yes','side_effect':'Pain'},
                     {'country':'Colombia','drug_name':'...','smoker':'no','side_effect':'stomachache'},
                     {'country':'Argentina','drug_name':'...','smoker':'yes','side_effect':'Pain'},
@@ -98,3 +98,9 @@ def test_agrupar_elementos_tupla():
     # en caso de valor incorrecto
     assert utilidades.agrupar_elementos_tupla([('vomito',2),('fiebre', 4),('tos',2,3)]) == (['vomito','fiebre'],[2,4])
 
+def test_localizar_pais():
+
+    utilidades.localizar_pais(dataset=dataset_test,pais='Argentina') == (0.00,0.00) # caso donde no lo encuentra
+    utilidades.localizar_pais(dataset=dataset_test,pais='Alemania') == (51.1657,10.4515) # caso donde si lo encuentra
+    # no importa si Alemania esta repetido en este caso, va a tomar el primer valor del dataset que coincida con Alemania
+    
