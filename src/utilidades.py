@@ -291,3 +291,37 @@ def agrupar_elementos_tupla(lista : list[tuple]):
             agrupacion_B.append(tupla[1])
 
     return agrupacion_A,agrupacion_B
+
+
+def efectos_colaterales(linea : dict) -> bool:
+    '''
+    dada una linea en formato diccionario, devuelve un booleano indicando si el paciente
+    tiene efectos colaterales 
+    
+    '''
+    efecto_colateral = linea.get('side_effect')
+
+    return  efecto_colateral is not None and efecto_colateral != ''
+
+
+def cantidad_efectos_colaterales(pais) -> tuple[int,int]:
+
+    '''
+    lleva un conteo de las personas con efectos colaterales y sin efectos colaterales
+    retorna un int con la cantidad de personas con efectos colaterales 
+    '''
+    data_set  = archivos.archivo_a_dict(archivos.ARCHIVO)
+    con_efectos = 0
+
+    for linea in data_set:
+
+        # filtra el dataset por pais y si tiene efectos colaterales,
+        #  si cumple ambas condiciones suma 1 a con_efectos
+        if linea.get("country") == pais and efectos_colaterales(linea):
+            con_efectos+=1
+
+    total = (con_efectos)
+    return total
+
+
+
