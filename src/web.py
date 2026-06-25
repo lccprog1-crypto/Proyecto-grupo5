@@ -217,6 +217,7 @@ def levantar_web():
                                         'medicamentos mas documentados',
                                         'ranking de paises'])
     
+    # PREGUNTA NRO 6 (DINAMICA):
     # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
 
     st.header('Grafico droga con mas efectos secundarios por pais')

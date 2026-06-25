@@ -304,10 +304,10 @@ def efectos_colaterales(linea : dict) -> bool:
     return  efecto_colateral is not None and efecto_colateral != ''
 
 
-def cantidad_efectos_colaterales(pais) -> tuple[int,int]:
+def cantidad_efectos_colaterales(pais) -> tuple[int]:
 
     '''
-    lleva un conteo de las personas con efectos colaterales y sin efectos colaterales
+    lleva un conteo de las personas con efectos colaterales 
     retorna un int con la cantidad de personas con efectos colaterales 
     '''
     data_set  = archivos.archivo_a_dict(archivos.ARCHIVO)
