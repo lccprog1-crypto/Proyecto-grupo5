@@ -304,24 +304,68 @@ def efectos_colaterales(linea : dict) -> bool:
     return  efecto_colateral is not None and efecto_colateral != ''
 
 
-def cantidad_efectos_colaterales(pais) -> tuple[int,int]:
+def cantidad_efectos_colaterales(pais, dataset = archivos.dataset) -> int: 
 
     '''
     lleva un conteo de las personas con efectos colaterales y sin efectos colaterales
     retorna un int con la cantidad de personas con efectos colaterales 
     '''
-    data_set  = archivos.archivo_a_dict(archivos.ARCHIVO)
+    
     con_efectos = 0
 
-    for linea in data_set:
+    for linea in dataset: # si el dataset no se ása como argumento pasa el dataset del csv
 
         # filtra el dataset por pais y si tiene efectos colaterales,
         #  si cumple ambas condiciones suma 1 a con_efectos
         if linea.get("country") == pais and efectos_colaterales(linea):
             con_efectos+=1
 
-    total = (con_efectos)
-    return total
+    
+    return con_efectos
+
+
+def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[float,float]:
+
+    '''
+    dado un pais, retorna una tupla de flotantes con las coordenadas de dicho pais
+
+    ejemplo:
+
+    localizar_pais('India') -> (20.5937,78.9629) 
+
+    el primer valor es latitud y el segundo valor es longitud
+    
+    '''
+
+    i = 0  # i es un contador que va incrementando de uno en uno (indice)
+
+    # esto podria resolverse con un bucle for y al encontrar un elemento retornar el valor inmediatamente
+    # opte por hacerlo de esta forma para evitar hacer un return dentro del for
+
+    while i < len(dataset):
+
+        elemento = dataset[i]
+
+        if elemento.get('country') == pais:
+
+            
+            lat = elemento.get('capital_lat')
+            long = elemento.get('capital_lon')
+
+            if lat is None or long is None: # si no encuentra la key de longitud o latitud devuelve 0,0
+                lat = 0.00
+                long = 0.00
+
+            coords = (float(lat),float(long))
+            break # como ya encontre el valor que buscaba rompo el while
+
+        i+= 1
+
+    return coords
+
+
+
+
 
 
 
