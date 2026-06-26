@@ -1,11 +1,9 @@
 'modulo para el muestreo web'
 
-import archivos
 import streamlit as st
 import matplotlib.pyplot as mpl
 import utilidades
-import pandas as pd
-from numpy.random import default_rng as rng
+
 
 
 # TODO: documentar las funciones de este modulo
