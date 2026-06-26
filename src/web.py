@@ -133,12 +133,12 @@ def droga_mas_efectos():
 
     lista_drogas_repetidas = utilidades.listar_elementos(etiqueta='drug_name',
                                                         repetir=True)
-    '''
-    esto lo que hace es agrupar en las drogas con el resto de drogas
-    agrupar los valores de cantidades con los valores de cantidades
-    el primer elemento de la lista drogas esta relacionado con el primer elemento
-    de la lista de repeticiones y asi sucesivamente
-    '''
+    
+    # esto lo que hace es agrupar en las drogas con el resto de drogas
+    # agrupar los valores de cantidades con los valores de cantidades
+    # el primer elemento de la lista drogas esta relacionado con el primer elemento
+    # de la lista de repeticiones y asi sucesivamente
+
     totales_elementos = utilidades.contar_elementos_total(lista_drogas_repetidas)
 
     drogas,repeticiones_drogas = utilidades.agrupar_elementos_tupla(totales_elementos)

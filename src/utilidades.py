@@ -342,6 +342,8 @@ def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[
     # esto podria resolverse con un bucle for y al encontrar un elemento retornar el valor inmediatamente
     # opte por hacerlo de esta forma para evitar hacer un return dentro del for
 
+    coords = (0.00,0.00) # valor por defecto que devuelve si no encuentra el pais
+
     while i < len(dataset):
 
         elemento = dataset[i]
@@ -352,11 +354,10 @@ def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[
             lat = elemento.get('capital_lat')
             long = elemento.get('capital_lon')
 
-            if lat is None or long is None: # si no encuentra la key de longitud o latitud devuelve 0,0
-                lat = 0.00
-                long = 0.00
+            if lat is not None or long is not None: # si no encuentra la key de longitud o latitud devuelve 0,0
+                
+                coords = (float(lat),float(long))
 
-            coords = (float(lat),float(long))
             break # como ya encontre el valor que buscaba rompo el while
 
         i+= 1

@@ -100,7 +100,7 @@ def test_agrupar_elementos_tupla():
 
 def test_localizar_pais():
 
-    utilidades.localizar_pais(dataset=dataset_test,pais='Argentina') == (0.00,0.00) # caso donde no lo encuentra
-    utilidades.localizar_pais(dataset=dataset_test,pais='Alemania') == (51.1657,10.4515) # caso donde si lo encuentra
+    assert utilidades.localizar_pais(dataset=dataset_test,pais='Argentina') == (0.00,0.00) # caso donde existe el pais pero no encuentra las coordenadas
+    assert utilidades.localizar_pais(dataset=dataset_test,pais='Alemania') == (51.1657,10.4515) # caso donde si lo encuentra
     # no importa si Alemania esta repetido en este caso, va a tomar el primer valor del dataset que coincida con Alemania
-    
+    assert utilidades.localizar_pais(dataset=dataset_test,pais='test') == (0.00,0.00) # caso que no existe
