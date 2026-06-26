@@ -185,18 +185,20 @@ def ranking_paises():
         st.map(coordenadas_mapa, size=40,latitude='lat',longitude='long')
 
     with columna_derecha:
-        st.markdown("Top 7 Países")
 
-        for pais in range(7): # TODO: ver de abstraer esta logica de ordenamiento haciendo una funcion
+        cant_paises = len(paises)
+
+        st.markdown('Top ' + str(cant_paises) + ' Países')
+
+        for puesto in range(1,cant_paises + 1): # TODO: ver de abstraer esta logica de ordenamiento haciendo una funcion
                 
-            top = max(paises)
+            top = max(paises_casos)
             cantidad = top[0]
             nombre_pais = top[1]
-            puesto = pais + 1
-
+        
             st.write("puesto", puesto, "-", nombre_pais, ":", cantidad, "casos")
 
-            paises.remove(top)
+            paises_casos.remove(top)
     
 
 
