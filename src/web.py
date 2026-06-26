@@ -1,11 +1,9 @@
 'modulo para el muestreo web'
 
-import archivos
 import streamlit as st
 import matplotlib.pyplot as mpl
 import utilidades
-import pandas as pd
-from numpy.random import default_rng as rng
+
 
 
 # TODO: documentar las funciones de este modulo
@@ -151,62 +149,64 @@ def droga_mas_efectos():
 def ranking_paises():
     st.subheader('Ranking de paises con mas casos de efectos colaterales')
 
-    casos_Pakistan = utilidades.cantidad_efectos_colaterales('Pakistan')
-    casos_USA = utilidades.cantidad_efectos_colaterales('USA')
-    casos_India = utilidades.cantidad_efectos_colaterales('India')
-    casos_UK = utilidades.cantidad_efectos_colaterales('UK')
-    casos_Germany = utilidades.cantidad_efectos_colaterales('Germany')
-    casos_Canada = utilidades.cantidad_efectos_colaterales('Canada')
-    casos_Australia = utilidades.cantidad_efectos_colaterales('Australia')
 
-    # lista de tuplas sobres los paises, donde su 1er argumento es un numero correspondiente
-    # a la cantidad de casos y el 2do argumento es el nombre del pais
-    paises = [(casos_Pakistan, 'Pakistan'),
-              (casos_USA, 'USA'),
-              (casos_India, 'India'),
-              (casos_UK, 'UK'),
-              (casos_Germany, 'Germany'),
-              (casos_Canada, 'Canada'),
-              (casos_Australia, 'Australia')]
+    paises = utilidades.listar_elementos() # por defecto va a tomar el dataset del archivo, y la key country 
+                                           # es por eso que no le paso ningun parametro: no es necesario
+
+    paises_casos = [] # lista que almacenara la cantidad de casos y el pais en formato de tupla
+
+    for pais in paises:
+
+        numero_casos = utilidades.cantidad_efectos_colaterales(pais)
+
+        paises_casos.append((numero_casos,pais))
+
 
     # Lista de coordenadas para el mapa (Latitud y Longitud)
     # sacadas de internet busque el centro de cada pais del top
-    coordenadas_mapa = [
-        {"lat": 30.3753, "lon": 69.3451},  # Pakistan
-        {"lat": 37.0902, "lon": -95.7129},  # USA
-        {"lat": 20.5937, "lon": 78.9629},  # India
-        {"lat": 55.3781, "lon": -3.4360},  # UK
-        {"lat": 51.1657, "lon": 10.4515},  # Germany
-        {"lat": 56.1304, "lon": -106.3468},  # Canada
-        {"lat": -25.2744, "lon": 133.7751},  # Australia
-    ]
+
+
+    coordenadas_mapa = []
+
+    for pais in paises:
+
+        lat,long = utilidades.localizar_pais(pais)
+
+        coordenadas_mapa.append({'lat':lat,'long':long})
+
     
     # divide la pantalla en 2 para mostrar el mapa  y el top
     columna_izquierda, columna_derecha = st.columns([2, 1])
 
     with columna_izquierda:
         st.markdown("Mapa de casos por país")
-        st.map(coordenadas_mapa, size=40)
+        st.map(coordenadas_mapa, size=40,latitude='lat',longitude='long')
 
     with columna_derecha:
-        st.markdown("Top 7 Países")
 
-        for pais in range(7):
-            top = max(paises)
+        cant_paises = len(paises)
+
+        st.markdown('Top ' + str(cant_paises) + ' Países')
+
+        for puesto in range(1,cant_paises + 1): # TODO: ver de abstraer esta logica de ordenamiento haciendo una funcion
+                
+            top = max(paises_casos)
             cantidad = top[0]
             nombre_pais = top[1]
-            puesto = pais + 1
-
+        
             st.write("puesto", puesto, "-", nombre_pais, ":", cantidad, "casos")
 
-            paises.remove(top)
+            paises_casos.remove(top)
     
 
 
 def levantar_web():
 
-    st.title('Trabajo Practico - Grupo 5')
-    st.header(':blue[Tema:] efectos colaterales en medicamentos')
+    st.title('Proyecto de Programación II - Grupo 5')
+    st.header('Tema: efectos colaterales en medicamentos')
+    st.header('Integrantes:\n Fiori Santino, Urbaneja Matias, Rojas Lucca',divider=True)
+              
+
 
     # PREGUNTA NRO 7 (DINAMICA):
     desplegar_dashboard_droga_sintoma()  # pregunta que responde: dado un medicamento ¿que efectos colaterales puede provocar?
