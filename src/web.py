@@ -187,7 +187,8 @@ def ranking_paises():
     with columna_derecha:
         st.markdown("Top 7 Países")
 
-        for pais in range(7):
+        for pais in range(7): # TODO: ver de abstraer esta logica de ordenamiento haciendo una funcion
+                
             top = max(paises)
             cantidad = top[0]
             nombre_pais = top[1]
