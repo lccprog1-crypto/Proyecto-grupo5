@@ -365,8 +365,82 @@ def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[
     return coords
 
 
+def promedio_lista(listas : list) -> int:
+    
+    """
+    #promedia una serie de numeros dada la lista que los contiene
+    
+    #retorna un promedio de la lista
+    
+    """
+    suma=0
+    divisor=0
+    for x in range (0,len(listas)):
+        suma+=int(listas[x])
+        divisor+=1
+    return suma/divisor
+
+def listar_franja_etaria(dataset : list) -> int:
+    """
+    #promedia la edad de las personas que tiene efectos adversos en cada pais, si es que la persona los los tiene
+    
+    #retorna un diccionario con el promedio de dedad de cada pais
+"""
+    diccionario_promedio_paises={}
+    
+    lista_pakistan=[]
+    
+    lista_usa=[]
+    
+    lista_india=[]
+    
+    lista_canada=[]
+    
+    lista_uk=[]
+    
+    lista_australia=[]
+    
+    lista_germany=[]
+    
+    for linea in dataset:
+        if linea.get("side_effect")!="":
+            if linea.get("country")=="Pakistan":
+                lista_pakistan.append(linea.get("age"))
+            
+            elif linea.get("country")=="USA":
+                lista_usa.append(linea.get("age"))
+            
+            elif linea.get("country")=="India":
+                lista_india.append(linea.get("age"))
+                
+            elif linea.get("country")=="Canada":
+                lista_canada.append(linea.get("age"))
+            
+            elif linea.get("country")=="UK":
+                lista_uk.append(linea.get("age"))
+            
+            elif linea.get("country")=="Australia":
+                lista_australia.append(linea.get("age"))
+            
+            elif linea.get("country")=="Germany":
+                lista_germany.append(linea.get("age"))
+                
+    
+    diccionario_promedio_paises.update({"Pakistan":promedio_lista(lista_pakistan)})
+    
+    diccionario_promedio_paises.update({"USA":promedio_lista(lista_usa)})
+    
+    diccionario_promedio_paises.update({"India":promedio_lista(lista_india)})
+    
+    diccionario_promedio_paises.update({"Canada":promedio_lista(lista_canada)})
+    
+    diccionario_promedio_paises.update({"UK":promedio_lista(lista_uk)})
+    
+    diccionario_promedio_paises.update({"Australia":promedio_lista(lista_australia)})
+    
+    diccionario_promedio_paises.update({"Germany":promedio_lista(lista_germany)})
+    
+    return diccionario_promedio_paises
 
 
-
-
-
+print(listar_franja_etaria(archivos.dataset))
