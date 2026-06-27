@@ -426,19 +426,19 @@ def listar_franja_etaria(dataset : list) -> int:
                 lista_germany.append(linea.get("age"))
                 
     
-    diccionario_promedio_paises.update({"Pakistan":promedio_lista(lista_pakistan)})
+    diccionario_promedio_paises.update({"Pakistan":round(promedio_lista(lista_pakistan),1)})
     
-    diccionario_promedio_paises.update({"USA":promedio_lista(lista_usa)})
+    diccionario_promedio_paises.update({"USA":round(promedio_lista(lista_usa),1)})
     
-    diccionario_promedio_paises.update({"India":promedio_lista(lista_india)})
+    diccionario_promedio_paises.update({"India":round(promedio_lista(lista_india),1)})
     
-    diccionario_promedio_paises.update({"Canada":promedio_lista(lista_canada)})
+    diccionario_promedio_paises.update({"Canada":round(promedio_lista(lista_canada),1)})
     
-    diccionario_promedio_paises.update({"UK":promedio_lista(lista_uk)})
+    diccionario_promedio_paises.update({"UK":round(promedio_lista(lista_uk),1)})
     
-    diccionario_promedio_paises.update({"Australia":promedio_lista(lista_australia)})
+    diccionario_promedio_paises.update({"Australia":round(promedio_lista(lista_australia),1)})
     
-    diccionario_promedio_paises.update({"Germany":promedio_lista(lista_germany)})
+    diccionario_promedio_paises.update({"Germany":round(promedio_lista(lista_germany),1)})
     
     return diccionario_promedio_paises
 
