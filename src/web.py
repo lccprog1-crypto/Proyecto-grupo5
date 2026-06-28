@@ -9,14 +9,14 @@ import utilidades
 # TODO: documentar las funciones de este modulo
 # TODO: diseñar mas preguntas dinamicas
 
-def grafico_torta(datos : list|tuple,etiquetas : list = None,formato = None):
+def grafico_torta(datos : list,etiquetas : list = None,formato = None):
 
     fig,ax = mpl.subplots()
     ax.pie(datos,labels=etiquetas,autopct=formato)
     st.pyplot(fig)
 
 
-def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '',titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
+def crear_grafico_barras(ejex : list,ejey : list ,titulo :str = '',titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
 
     fig,ax = mpl.subplots()
 
@@ -30,7 +30,7 @@ def crear_grafico_barras(ejex : list | tuple,ejey : list | tuple,titulo :str = '
     st.pyplot(fig)
 
 
-def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple,titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
+def crear_grafica_lineas(ejex : list ,ejey : list,titulox : str = '',tituloy : str = '',tamañox = 10,tamañoy = 10):
 
 
     fig,ax = mpl.subplots()
@@ -42,7 +42,7 @@ def crear_grafica_lineas(ejex : list | tuple,ejey : list|tuple,titulox : str = '
     st.pyplot(fig)
 
 
-def crear_selector(opciones : tuple | list,etiqueta: str =''):
+def crear_selector(opciones : list,etiqueta: str =''):
 
     seleccion = st.selectbox(label=etiqueta,
                  options=opciones)
