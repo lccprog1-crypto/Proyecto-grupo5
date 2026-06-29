@@ -104,3 +104,9 @@ def test_localizar_pais():
     assert utilidades.localizar_pais(dataset=dataset_test,pais='Alemania') == (51.1657,10.4515) # caso donde si lo encuentra
     # no importa si Alemania esta repetido en este caso, va a tomar el primer valor del dataset que coincida con Alemania
     assert utilidades.localizar_pais(dataset=dataset_test,pais='test') == (0.00,0.00) # caso que no existe
+
+def test_promedio_lista():
+
+    assert utilidades.promedio_lista([6,8]) == 7.0
+    assert utilidades.promedio_lista([]) == 0
+    assert utilidades.promedio_lista(['6','8']) == 7.0 # en formato string, deberia resolverlo automaticamente
