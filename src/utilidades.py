@@ -365,7 +365,7 @@ def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[
     return coords
 
 
-def promedio_lista(listas : list[int]) -> float:
+def promedio_lista(listas : list) -> float:
     
     """
     promedia una serie de numeros dada la lista que los contiene
@@ -392,8 +392,6 @@ def promedio_lista(listas : list[int]) -> float:
 def listar_franja_etaria(dataset : list[dict] = archivos.dataset) -> dict:
     """
     promedia la edad de las personas que tiene efectos adversos en cada pais,
-    
-    si es que la persona los los tiene
     
     retorna un diccionario con el promedio de edad de cada pais
 
@@ -429,4 +427,5 @@ def listar_franja_etaria(dataset : list[dict] = archivos.dataset) -> dict:
     
     return diccionario_promedio_paises
 
-
+if __name__ == '__main__':
+    print(listar_franja_etaria())

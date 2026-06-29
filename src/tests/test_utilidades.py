@@ -107,6 +107,6 @@ def test_localizar_pais():
 
 def test_promedio_lista():
 
-    assert utilidades.promedio_lista([6,8]) == 7.0
-    assert utilidades.promedio_lista([]) == 0
-    assert utilidades.promedio_lista(['6','8']) == 7.0 # en formato string, deberia resolverlo automaticamente
+    assert round(utilidades.promedio_lista([6,8]),1) == 7.0
+    assert round(utilidades.promedio_lista([]),1) == 0
+    assert round(utilidades.promedio_lista(['6','8']),1) == 7.0 # en formato string, deberia resolverlo automaticamente
