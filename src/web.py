@@ -3,6 +3,7 @@
 import streamlit as st
 import matplotlib.pyplot as mpl
 import utilidades
+from archivos import dataset
 
 
 
@@ -146,6 +147,40 @@ def droga_mas_efectos():
     
     return drogas,repeticiones_drogas
 
+
+def listar_franja_etaria(dataset : list[dict] = dataset) -> dict:
+    """
+    promedia la edad de las personas que tiene efectos adversos en cada pais,
+    
+    retorna dos listas: la primera corresponde a paises y la segunda corresponde a el valor numerico
+
+    """
+
+    
+    promedios_etarios = []
+
+    paises = utilidades.listar_elementos(dataset=dataset) # lista los paises sin repeticiones a partir del dataset que se le pase
+    # no le paso todos los argumentos porque no es necesario, ya tiene los argumentos que necesito por defecto
+    
+    for pais in paises:
+
+        dataset_pais = utilidades.clasificar_dataset(dataset=dataset,clave='country',clasificacion=pais)
+
+        edades_pais = utilidades.listar_elementos(dataset=dataset_pais,
+                                       etiqueta='age',
+                                       repetir=True)
+        
+        promedio_etario = int(utilidades.promedio_lista(edades_pais)) # dado que es un promedio de edad
+                                                    # busco la parte entera
+
+        promedios_etarios.append(promedio_etario)
+        
+
+    
+    return paises, promedios_etarios
+
+
+
 def ranking_paises():
     st.subheader('Ranking de paises con mas casos de efectos colaterales')
 
@@ -212,10 +247,12 @@ def levantar_web():
     desplegar_dashboard_droga_sintoma()  # pregunta que responde: dado un medicamento ¿que efectos colaterales puede provocar?
 
 
-    enfermos_sanos,pais_droga,med_mas_doc, top_ranking = st.tabs(['Grafico enfermos vs sanos',
+    enfermos_sanos,pais_droga,med_mas_doc, top_ranking,prom_et = st.tabs([
+                                        'Grafico enfermos vs sanos',
                                         'Droga vs pais',
                                         'medicamentos mas documentados',
-                                        'ranking de paises'])
+                                        'ranking de paises',
+                                        'grafico de promedios etarios'])
     
     # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
 
@@ -231,7 +268,7 @@ def levantar_web():
     # PREGUNTA NOR 5 (ESTATICA):
     with enfermos_sanos: # pregunta que responde : ¿que porcentaje de la poblacion es suceptible a efectos adversos?
 
-        st.write('Este grafico muestra el porcentaje de personas sanas y con enfermedades base que sufren efectos colaterales')
+        st.header('Este grafico muestra el porcentaje de personas sanas y con enfermedades base que sufren efectos colaterales')
 
         grafico_torta(total,
                         ['personas con enfermedades base','personas sanas'],
@@ -241,7 +278,7 @@ def levantar_web():
                       # PREGUNTA NRO 8 (ESTATICA):
     with pais_droga:  # pregunta que responde: dado un pais ¿que medicamento tiene el mayor impacto?
         
-        st.write('Droga con mayor efecto colateral segun el pais')
+        st.header('Droga con mayor efecto colateral segun el pais')
         
         paises, drogas = listar_paises_drogas()
         crear_grafico_barras(paises,
@@ -264,6 +301,16 @@ def levantar_web():
     with top_ranking: # pregunta que responde: ¿cuales son los paises con mas casos de efectos colaterales?
         st.write('Ranking de paises con mas casos de efectos colaterales')
         ranking_paises()
+
+    with prom_et: # PREGUNTA NRO 2 (ESTATICA)
+
+        paises, rango_et = listar_franja_etaria()
+        st.header('En esta grafica se muestra el promedio de edad de las personas que sufren efectos colaterales segun el pais')
+
+        crear_grafica_lineas(ejex=paises,
+                             ejey=rango_et,
+                             titulox='Pais',
+                             tituloy='Rangos etarios promedios')
 
 
 def main():
