@@ -365,82 +365,68 @@ def localizar_pais(pais : str,dataset : list[dict] = archivos.dataset) -> tuple[
     return coords
 
 
-def promedio_lista(listas : list) -> int:
+def promedio_lista(listas : list[int]) -> float:
     
     """
-    #promedia una serie de numeros dada la lista que los contiene
+    promedia una serie de numeros dada la lista que los contiene
     
-    #retorna un promedio de la lista
+    retorna un promedio de la lista con dicho valor redondeado un numero despues de la coma
     
     """
-    suma=0
-    divisor=0
-    for x in range (0,len(listas)):
-        suma+=int(listas[x])
-        divisor+=1
+
+    suma = 0
+    divisor = 0
+
+    for elemento in listas:
+
+        suma += int(elemento) # nos aseguramos que los numeros estan en int
+
+        divisor += 1
+
+    if divisor == 0: # nos aseguramos que divisor nunca sea cero, d elo contrario da error de zerodivision
+
+        divisor = 1
+
     return suma/divisor
 
-def listar_franja_etaria(dataset : list) -> int:
+def listar_franja_etaria(dataset : list[dict] = archivos.dataset) -> dict:
     """
-    #promedia la edad de las personas que tiene efectos adversos en cada pais, si es que la persona los los tiene
+    promedia la edad de las personas que tiene efectos adversos en cada pais,
     
-    #retorna un diccionario con el promedio de dedad de cada pais
-"""
+    si es que la persona los los tiene
+    
+    retorna un diccionario con el promedio de edad de cada pais
+
+    ejemplo de retorno:
+
+    {
+    Uk : 70,
+    Germany: 50
+    }
+
+    """
+
     diccionario_promedio_paises={}
     
-    lista_pakistan=[]
+
+    paises = listar_elementos(dataset=dataset) # lista los paises sin repeticiones a partir del dataset que se le pase
+    # no le paso todos los argumentos porque no es necesario, ya tiene los argumentos que necesito por defecto
     
-    lista_usa=[]
-    
-    lista_india=[]
-    
-    lista_canada=[]
-    
-    lista_uk=[]
-    
-    lista_australia=[]
-    
-    lista_germany=[]
-    
-    for linea in dataset:
-        if linea.get("side_effect")!="":
-            if linea.get("country")=="Pakistan":
-                lista_pakistan.append(linea.get("age"))
-            
-            elif linea.get("country")=="USA":
-                lista_usa.append(linea.get("age"))
-            
-            elif linea.get("country")=="India":
-                lista_india.append(linea.get("age"))
-                
-            elif linea.get("country")=="Canada":
-                lista_canada.append(linea.get("age"))
-            
-            elif linea.get("country")=="UK":
-                lista_uk.append(linea.get("age"))
-            
-            elif linea.get("country")=="Australia":
-                lista_australia.append(linea.get("age"))
-            
-            elif linea.get("country")=="Germany":
-                lista_germany.append(linea.get("age"))
-                
-    
-    diccionario_promedio_paises.update({"Pakistan":round(promedio_lista(lista_pakistan),1)})
-    
-    diccionario_promedio_paises.update({"USA":round(promedio_lista(lista_usa),1)})
-    
-    diccionario_promedio_paises.update({"India":round(promedio_lista(lista_india),1)})
-    
-    diccionario_promedio_paises.update({"Canada":round(promedio_lista(lista_canada),1)})
-    
-    diccionario_promedio_paises.update({"UK":round(promedio_lista(lista_uk),1)})
-    
-    diccionario_promedio_paises.update({"Australia":round(promedio_lista(lista_australia),1)})
-    
-    diccionario_promedio_paises.update({"Germany":round(promedio_lista(lista_germany),1)})
+    for pais in paises:
+
+        dataset_pais = clasificar_dataset(dataset=dataset,clave='country',clasificacion=pais)
+
+        edades_pais = listar_elementos(dataset=dataset_pais,
+                                       etiqueta='age',
+                                       repetir=True)
+        
+        promedio_etario = int(promedio_lista(edades_pais)) # dado que es un promedio de edad
+                                                    # busco la parte entera
+
+        diccionario_promedio_paises.update({pais:promedio_etario} )
+        
+
     
     return diccionario_promedio_paises
 
 
-print(listar_franja_etaria(archivos.dataset))
