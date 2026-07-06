@@ -234,6 +234,14 @@ def ranking_paises():
             paises_casos.remove(top)
     
 
+def persona_enfermedad_prev():
+    st.markdown('que enfermedades previas tenian las personas')
+    
+    lista_num_dataset = list(range(1, 10001))
+    numero_elegido = crear_selector(opciones=lista_num_dataset, etiqueta="seleccione el numero de la persona en el dataset: ")
+    enfermedad_previa = utilidades.seleccionar_persona(numero_elegido)
+
+    st.markdown(f"{enfermedad_previa}")
 
 def levantar_web():
 
@@ -262,6 +270,10 @@ def levantar_web():
     
 
     total = utilidades.cantidad_afectados()
+
+    st.header('Que enfermedad previa tenia la persona?')
+    persona_enfermedad_prev()
+
 
 
     # seccion para preguntas estaticas
