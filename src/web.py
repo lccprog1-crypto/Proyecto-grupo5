@@ -235,7 +235,6 @@ def ranking_paises():
     
 
 def persona_enfermedad_prev():
-    st.markdown('que enfermedades previas tenian las personas')
     
     lista_num_dataset = list(range(1, 10001))
     numero_elegido = crear_selector(opciones=lista_num_dataset, etiqueta="seleccione el numero de la persona en el dataset: ")

@@ -110,3 +110,28 @@ def test_promedio_lista():
     assert round(utilidades.promedio_lista([6,8]),1) == 7.0
     assert round(utilidades.promedio_lista([]),1) == 0
     assert round(utilidades.promedio_lista(['6','8']),1) == 7.0 # en formato string, deberia resolverlo automaticamente
+
+def test_cantidad_efectos_colaterales():
+
+    assert utilidades.cantidad_efectos_colaterales('Germany') == 1433
+    assert utilidades.cantidad_efectos_colaterales('USA') == 1466
+    assert utilidades.cantidad_efectos_colaterales('Pakistan') == 1452
+
+
+def test_cantidad_afectados():
+
+    assert utilidades.cantidad_afectados() == (8318, 1682)
+
+
+def test_droga_mas_impacto():
+
+    assert utilidades.droga_mas_impacto('Pakistan') == ('Amoxicillin', 160)
+    assert utilidades.droga_mas_impacto('Germany') == ('Amoxicillin', 156)
+    assert utilidades.droga_mas_impacto('Narnia') == ('', 0)
+
+
+def test_seleccionar_persona():
+
+    assert utilidades.seleccionar_persona(1) == "la enfermedad previa que tiene esta persona es: Heart Disease"
+    assert utilidades.seleccionar_persona(2) == "la enfermedad previa que tiene esta persona es: Kidney Disease"
+    assert utilidades.seleccionar_persona(5) == "no tiene enfermedad previa"

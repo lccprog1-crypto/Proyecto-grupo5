@@ -389,35 +389,24 @@ def promedio_lista(listas : list) -> float:
 
     return suma/divisor
 
-def listar_enfermedades(dataset : list[dict] = archivos.dataset,etiqueta : str = 'chronic_condition',repetir : bool = True) -> list[str]:
-    elementos = []
 
-    for linea in dataset:
-
-        el = linea.get(etiqueta)
-
-        if el is None:
-
-            el = ''
-
-
-        if not repetir and not el in elementos:
-
-            elementos.append(str(el)) # fuerza a que el elemento se transforme en un str
-        
-
-        if repetir : # incluye todos los elementos aunque esten repetidos
-            elementos.append(str(el))
-
-    return elementos
 
 def seleccionar_persona(num: int) -> str:
-    dataset = listar_enfermedades()
+    '''
+    dado un numero, va a tomar el indice correspondiente a ese numero
+    menos 1, si es un string vacio, esa persona no tenia enfermedad previa y devuelve su respectivo mensaje
+    si  no, devuelve un mensaje con la enfermedad previa que tenia esa persona
+    '''
+    enfermedades = listar_elementos(etiqueta = 'chronic_condition',repetir = True)
+
+    dataset = enfermedades
 
     if dataset[num - 1] == '':
         return "no tiene enfermedad previa"
     else:
         return "la enfermedad previa que tiene esta persona es: " + dataset[num - 1]
+    
+
 
 
 
